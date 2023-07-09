@@ -3,3 +3,4 @@ gradio_client==0.2.7
 langchain==0.0.228
 langchainplus-sdk==0.0.20
 openai==0.27.8
+python-dotenv==1.0.0
