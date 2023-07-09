@@ -35,6 +35,8 @@ def get_chain() -> LLMChain:
     """
     Returns the chatbot chain
     """
+    template = get_template()
+
     prompt = PromptTemplate(
         input_variables=['history', 'human_input'],
         template=template
@@ -57,6 +59,7 @@ def interface() -> None:
         chatbot = gr.Chatbot()
         msg = gr.Textbox()
         clear = gr.Button('Clear')
+        chatgpt_chain = get_chain()
 
         def user(user_message, history):
             return '', history + [[user_message, None]]
