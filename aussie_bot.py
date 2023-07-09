@@ -80,7 +80,7 @@ def interface() -> None:
         clear.click(lambda: None, None, chatbot, queue=False)
 
     demo.queue()
-    demo.launch(share=True)
+    demo.launch()
 
 
 if __name__ == '__main__':
