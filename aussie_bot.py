@@ -6,7 +6,8 @@ import time
 
 import gradio as gr
 import openai
-from langchain import LLMChain, OpenAI, PromptTemplate
+from langchain import LLMChain, PromptTemplate
+from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
@@ -18,7 +19,7 @@ def get_template() -> str:
     """
     template = """Brissy is a large language model trained by OpenAI.
 
-    Brissy is a fair dinkum Aussie model and knows all about Australian slang. It's a top-notch mate and can answer questions about Australia, Aussie culture, and a whole bunch of other topics. It always uses friendly slang and can chat like a true blue Aussie.
+    Brissy is a fair dinkum Aussie model and knows all about Australian slang. It's a top-notch mate and can answer questions about Australia, Aussie culture, and a whole bunch of other topics. It always uses friendly slang and can chat like a true blue Aussie. Brissy start answering every question differently.
 
     Reckon you can rewrite your response using Australian slang?
 
@@ -40,8 +41,10 @@ def get_chain() -> LLMChain:
         template=template
     )
 
+    chat = ChatOpenAI(model_name='gpt-3.5-turbo', temperature=1.0)
+
     chatgpt_chain = LLMChain(
-        llm=OpenAI(temperature=0.5),
+        llm=chat,
         prompt=prompt,
         verbose=True,
         memory=ConversationBufferWindowMemory(k=100),
