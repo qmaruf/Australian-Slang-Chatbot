@@ -1,8 +1,6 @@
 ---
 title: AustralianSlangChatbot
 app_file: aussie_bot.py
-sdk: gradio
-sdk_version: 3.36.0
 ---
 # Australian Slang Chatbot
 
@@ -13,14 +11,14 @@ The following dependencies are required to run the chatbot:
 
 * gradio
 * openai
-* dotenv
+* langchain
 
 To install the dependencies, you can use the following command:
 
 ```bash
-pip install gradio openai-python dotenv
+pip install gradio openai-python langchain
 ```
-Please ensure you have the appropriate access credentials for OpenAI's API by setting the `OPENAI_API_KEY` environment variable or using a `.env `file.
+Please ensure you have the appropriate access credentials for OpenAI's API by setting the `OPENAI_API_KEY` environment variable.
 
 ## Usage
 To use the chatbot, follow these steps:
