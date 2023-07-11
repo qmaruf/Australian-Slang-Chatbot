@@ -5,7 +5,7 @@ colorFrom: '#FDB157'
 colorTo: '#FFA773'
 app_file: aussie_bot.py
 sdk: gradio
-sdk_version: '1.5.0'
+sdk_version: 3.0.11
 pinned: true
 ---
 # Australian Slang Chatbot
