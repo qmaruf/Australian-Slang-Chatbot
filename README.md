@@ -4,6 +4,8 @@ emoji: 💬
 colorFrom: '#FDB157'
 colorTo: '#FFA773'
 app_file: aussie_bot.py
+sdk: gradio
+sdk_version: '1.5.0'
 pinned: true
 ---
 # Australian Slang Chatbot
