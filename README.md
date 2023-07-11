@@ -1,12 +1,8 @@
 ---
 title: AustralianSlangChatbot
-emoji: 💬
-colorFrom: '#FDB157'
-colorTo: '#FFA773'
 app_file: aussie_bot.py
 sdk: gradio
-sdk_version: 3.0.11
-pinned: true
+sdk_version: 3.36.0
 ---
 # Australian Slang Chatbot
 
