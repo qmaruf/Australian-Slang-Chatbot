@@ -59,18 +59,30 @@ def interface() -> None:
         chatbot = gr.Chatbot()
         msg = gr.Textbox()
         clear = gr.Button('Clear')
-        chatgpt_chain = get_chain()
+
+        try:
+            chatgpt_chain = get_chain()
+        except Exception as e:
+            print(e)
+            chatgpt_chain = None
 
         def user(user_message, history):
             return '', history + [[user_message, None]]
 
         def bot(history):
-            human_input = history[-1][0]
-
-            if len(human_input) < 512:
-                response = chatgpt_chain.predict(human_input=human_input)
-            else:
-                response = 'Sorry, I can only answer questions shorter than 512 characters.'
+            try:
+                human_input = history[-1][0]
+                
+                if chatgpt_chain is None:
+                    raise Exception('Chatbot not initialized')
+                
+                if len(human_input) < 512:
+                    response = chatgpt_chain.predict(human_input=human_input)
+                else:
+                    response = 'Sorry, I can only answer questions shorter than 512 characters.'
+            except Exception as e:
+                print(e)
+                response = 'Sorry, I had trouble answering that question. Please try again.'
 
             history[-1][1] = ''
             for character in response:
