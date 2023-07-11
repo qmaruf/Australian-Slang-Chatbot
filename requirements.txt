@@ -1,5 +1,4 @@
-gradio==3.36.1
-gradio_client==0.2.8
+gradio==3.0.11
 langchain==0.0.228
 langchainplus-sdk==0.0.20
 openai==0.27.8
