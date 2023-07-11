@@ -3,7 +3,7 @@ A chatbot that will answer using australian slang
 """
 import os
 import time
-
+from loguru import logger
 import gradio as gr
 import openai
 from langchain import LLMChain, PromptTemplate
@@ -67,7 +67,11 @@ def interface() -> None:
 
         def bot(history):
             human_input = history[-1][0]
-            response = chatgpt_chain.predict(human_input=human_input)
+
+            if len(human_input) < 512:
+                response = chatgpt_chain.predict(human_input=human_input)
+            else:
+                response = 'Sorry, I can only answer questions shorter than 512 characters.'
 
             history[-1][1] = ''
             for character in response:
