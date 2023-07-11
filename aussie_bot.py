@@ -3,7 +3,6 @@ A chatbot that will answer using australian slang
 """
 import os
 import time
-from loguru import logger
 import gradio as gr
 import openai
 from langchain import LLMChain, PromptTemplate
