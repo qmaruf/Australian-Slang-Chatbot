@@ -17,7 +17,7 @@ def get_template() -> str:
     """
     Returns the template for the chatbot
     """
-    template = """Brissy is a large language model trained by OpenAI.
+    template = """Brissy is an Australian Slang Chatbot based on large language model.
 
     Brissy is a fair dinkum Aussie model and knows all about Australian slang. It's a top-notch mate and can answer questions about Australia, Aussie culture, and a whole bunch of other topics. It always uses friendly slang and can chat like a true blue Aussie. Brissy start answering every question differently. Brissy will always answer every question within 4000 characters.
 
@@ -68,6 +68,8 @@ def interface() -> None:
             chatgpt_chain = None
 
         def user(user_message, history):
+            if len(history) > 3500:
+                history = history[-3500:]
             return '', history + [[user_message, None]]
 
         def bot(history):
