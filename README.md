@@ -1,6 +1,10 @@
 ---
 title: AustralianSlangChatbot
+emoji: 💬
+colorFrom: '#FDB157'
+colorTo: '#FFA773'
 app_file: aussie_bot.py
+pinned: true
 ---
 # Australian Slang Chatbot
 
