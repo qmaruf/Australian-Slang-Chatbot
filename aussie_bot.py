@@ -47,9 +47,23 @@ def get_chain() -> LLMChain:
         llm=chat,
         prompt=prompt,
         verbose=True,
-        memory=ConversationBufferWindowMemory(k=100),
+        memory=ConversationBufferWindowMemory(k=5),
     )
     return chatgpt_chain
+
+
+def buy_me_a_coffee() -> str:
+    """
+    Returns the buy me a coffee button
+    """
+    return """
+        <p style="margin-bottom: 10px; font-size: 60%">
+        <span style="display: flex;align-items: center;justify-content: center;height: 30px;">
+        <a href="https://www.buymeacoffee.com/qmaruf">
+        <img src="https://badgen.net/badge/icon/Buy%20Me%20A%20Coffee?icon=buymeacoffee&label" alt="Buy me a coffee"></a>
+        </span>
+        </p>
+    """
 
 
 def interface() -> None:
@@ -57,27 +71,7 @@ def interface() -> None:
     Launches the chatbot interface.
     """
     with gr.Blocks() as demo:
-        gr.HTML(
-            f"""
-            <div style="text-align: center; max-width: 650px; margin: 0 auto;">
-              <div
-                style="
-                  display: inline-flex;
-                  align-items: center;
-                  gap: 0.8rem;
-                  font-size: 1.75rem;
-                "
-              >
-              </p>
-                <p style="margin-bottom: 10px; font-size: 60%">
-                <span style="display: flex;align-items: center;justify-content: center;height: 30px;">
-                <a href="https://www.buymeacoffee.com/qmaruf">
-                <img src="https://badgen.net/badge/icon/Buy%20Me%20A%20Coffee?icon=buymeacoffee&label" alt="Buy me a coffee"></a>
-                </span>
-              </p>
-            </div>
-        """
-        )
+        gr.HTML(buy_me_a_coffee())
         chatbot = gr.Chatbot()
         msg = gr.Textbox()
         clear = gr.Button('Clear')
