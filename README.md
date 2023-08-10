@@ -6,6 +6,8 @@ sdk_version: 3.36.0
 ---
 # Australian Slang Chatbot
 
+Hugging Face Demo https://huggingface.co/spaces/qmaruf/AustralianSlangChatbot
+
 This is a chatbot that answers using Australian slang. The chatbot, named "Brissy," is powered by OpenAI's language model and can provide responses in a fair dinkum Aussie manner. It's designed to engage in conversations about Australia, Aussie culture, and a wide range of topics while incorporating friendly and authentic Australian slang.
 
 ## Dependencies
