@@ -3,12 +3,13 @@ A chatbot that will answer using australian slang
 """
 import os
 import time
-
 import gradio as gr
 import openai
 from langchain import LLMChain, PromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
+from dotenv import load_dotenv
+load_dotenv()
 
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
@@ -52,70 +53,14 @@ def get_chain() -> LLMChain:
     return chatgpt_chain
 
 
-def buy_me_a_coffee() -> str:
-    """
-    Returns the buy me a coffee button
-    """
-    return """
-        <p style="margin-bottom: 10px; font-size: 60%">
-        <span style="display: flex;align-items: center;justify-content: center;height: 30px;">
-        <a href="https://www.buymeacoffee.com/qmaruf">
-        <img src="https://badgen.net/badge/icon/Buy%20Me%20A%20Coffee?icon=buymeacoffee&label" alt="Buy me a coffee"></a>
-        </span>
-        </p>
-    """
+chatgpt_chain = get_chain()
 
-
-def interface() -> None:
-    """
-    Launches the chatbot interface.
-    """
-    with gr.Blocks() as demo:
-        gr.HTML(buy_me_a_coffee())
-        chatbot = gr.Chatbot()
-        msg = gr.Textbox()
-        clear = gr.Button('Clear')
-
-        try:
-            chatgpt_chain = get_chain()
-        except Exception as e:
-            print(e)
-            chatgpt_chain = None
-
-        def user(user_message, history):
-            if len(history) > 3500:
-                history = history[-3500:]
-            return '', history + [[user_message, None]]
-
-        def bot(history):
-            try:
-                human_input = history[-1][0]
-
-                if chatgpt_chain is None:
-                    raise Exception('Chatbot not initialized')
-
-                if len(human_input) < 512:
-                    response = chatgpt_chain.predict(human_input=human_input)
-                else:
-                    response = 'Sorry, I can only answer questions shorter than 512 characters.'
-            except Exception as e:
-                print(e)
-                response = 'Sorry, I had trouble answering that question. Please try again.'
-
-            history[-1][1] = ''
-            for character in response:
-                history[-1][1] += character
-                time.sleep(0.01)
-                yield history
-
-        msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(
-            bot, chatbot, chatbot
-        )
-        clear.click(lambda: None, None, chatbot, queue=False)
-
-    demo.queue()
-    demo.launch()
-
+def response(message, history):
+    response = chatgpt_chain.predict(human_input=message)
+    for i in range(len(response)):
+         time.sleep(0.01)
+         yield response[:i+1]
+    
 
 if __name__ == '__main__':
-    interface()
+    gr.ChatInterface(response).queue().launch()
